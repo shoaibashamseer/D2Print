@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Printshop Home</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Printing Products</h1>
+    <div class="products">
+        {% for product in products %}
+        <a href="{% url 'product_detail' product.id %}" class="product-card">
+            <h2>{{ product.name }}</h2>
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            <p>{{ product.description }}</p>
+        </a>
+        {% endfor %}
+    </div>
+     <script src="{% static 'js/scripts.js' %}"></script>
+</body>
+</html>

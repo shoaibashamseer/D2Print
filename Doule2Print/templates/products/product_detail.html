@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ product.name }} Details</title>
+    {% load static %}
+     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>{{ product.name }}</h1>
+
+     <div class="varieties">
+        {% for variety in varieties %}
+        <div class="variety-card">
+            <h2>{{ variety.name }}</h2>
+            <img src="{{ variety.image.url }}" alt="{{ variety.name }}">
+            <p>{{ variety.description }}</p>
+            <p>Stock: {{ variety.stock }}</p>
+            <p>Price: ${{ variety.price }}</p>
+            <button>Order Now</button>
+        </div>
+         {% endfor %}
+     </div>
+</body>
+</html>
+
+   <!-- Order Form Modal
+    <div id="orderFormModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeOrderForm()">&times;</span>
+            <h2>Order Form</h2>
+            <form id="orderForm" onsubmit="submitOrder(event)">
+                <input type="hidden" id="variety_id" name="variety_id">
+                <p id="product_name"></p>
+                <p id="price"></p>
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity" min="1" required>
+                <button type="submit">OK</button>
+            </form>
+        </div>
+    </div>-->
+
+

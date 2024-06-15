@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile</title>
+</head>
+<body>
+    <h2>Profile</h2>
+    <p>Welcome, {{ user.username }}!</p>
+    {% if user.customer.is_wholesale %}
+    <p>You are a wholesale customer.</p>
+    {% else %}
+    <p>You are a retail customer.</p>
+    {% endif %}
+</body>
+</html>

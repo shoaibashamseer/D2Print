@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Product</title>
+    <script>
+        function calculateTotal() {
+            var price = parseFloat(document.getElementById('id_price').value);
+            var quantity = parseInt(document.getElementById('id_quantity').value);
+            var total = price * quantity;
+            document.getElementById('total_price').innerText = total.toFixed(2);
+        }
+    </script>
+</head>
+<body>
+    <h1>Order {{ variety.name }}</h1>
+    <form method="post" oninput="calculateTotal()">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <p>Total Price: $<span id="total_price"></span></p>
+        <button type="submit">Order Now</button>
+    </form>
+</body>
+</html>
