@@ -1,0 +1,33 @@
+<!-- templates/orders/place_order.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Product</title>
+    <!-- Include jQuery from CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Ensure your custom script is loaded after jQuery -->
+    <script src="{% static 'js/scripts.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div id="orderPopup" class="popup" >
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <h2>Order {{ variety.name }}</h2>
+            <img src="{{ variety.image.url }}" alt="{{ variety.name }}">
+            <p>{{ variety.description }}</p>
+            <form id="orderForm">
+                {% csrf_token %}
+                <input type="hidden" id="variety_id" value="{{ variety.id }}">
+                <p>Total Price: $<span id="total_price"></span></p>
+                  <p>Available Stock: <span id="available_stock">{{ stock }}</span></p>
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity" min="1" max="{{ variety.stock }}" oninput="calculateTotal()">
+                  {{ form.as_p }}
+                 <button type="submit" id="orderButton" {% if stock <= 0 %}disabled{% endif %}>Order Now</button>
+            </form>
+             <p id="stock_message" style="color: red; display: none;">Insufficient stock available</p>
+        </div>
+    </div>
+</body>
+</html>
