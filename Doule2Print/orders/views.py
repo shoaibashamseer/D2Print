@@ -7,7 +7,7 @@ from django.http import JsonResponse
 from .models import Order
 from .forms import OrderForm
 from products.models import Variety
-from accounts.models import Customer
+
 
 '''def place_order(request, variety_id):
     variety = get_object_or_404(Variety, id=variety_id)

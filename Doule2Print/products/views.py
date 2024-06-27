@@ -6,7 +6,9 @@ from .models import Product, Variety
 
 def home(request):
     products = Product.objects.all()
-    return render(request, 'products/home.html', {'products': products})
+    varieties = Variety.objects.all()
+
+    return render(request, 'products/home.html', {'products': products, 'varieties': varieties})
 
 
 def product_detail(request, product_id):
@@ -26,6 +28,7 @@ def product_detail(request, product_id):
 
 def get_variety(request, variety_id):
     variety = get_object_or_404(Variety, id=variety_id)
+    is_wholesale = request.user.customer.is_wholesale if request.user.is_authenticated and hasattr(request.user, 'customer') else False
     return JsonResponse({
         'id': variety.id,
         'name': variety.name,
@@ -34,4 +37,5 @@ def get_variety(request, variety_id):
         'retail_price': str(variety.retail_price),
         'wholesale_price': str(variety.wholesale_price),
         'stock': variety.stock,
+        'is_wholesale': is_wholesale,
     })

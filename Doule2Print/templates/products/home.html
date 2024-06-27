@@ -2,21 +2,59 @@
 <html lang="en">
 <html>
 <head>
-      <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Printshop Home</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <h1>Printing Products</h1>
-    <div class="products">
-        {% for product in products %}
-        <a href="{% url 'product_detail' product.id %}" class="product-card">
-            <h2>{{ product.name }}</h2>
-            <img src="{{ product.image.url }}" alt="{{ product.name }}">
-            <p>{{ product.description }}</p>
-        </a>
+    <div class="navbar">
+    <!-- Logo -->
+    <div class="logo">
+        <img src="logo.png" alt="Logo" height="50">
+    </div>
+
+        <!-- Links -->
+        <a href="{% url 'home' %}"  >Home</a>
+        <div class="dropdown">
+            <button class="dropbtn">Products
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                {% for product in products %}
+                 <a href="{% url 'product_detail' product.id %}">{{ product.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+        {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+        <a href="#">User</a>
+
+    <!-- Search bar -->
+    <div class="search-container">
+        <form action="/search" method="get">
+            <input type="text" placeholder="Search..." name="search">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+</div>
+
+<div style="padding:16px">
+    <!-- Content goes here -->
+</div>
+        <h1>Printing Products</h1>
+        <div class="products">
+            {% for product in products %}
+            <a href="{% url 'product_detail' product.id %}" class="product-card">
+                <h2>{{ product.name }}</h2>
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                <p>{{ product.description }}</p>
+            </a>
         {% endfor %}
     </div>
      <script src="{% static 'js/scripts.js' %}"></script>
